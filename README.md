@@ -1,0 +1,4 @@
+.home
+=====
+
+~ settings and scripts
