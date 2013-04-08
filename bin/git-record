@@ -1,0 +1,73 @@
+#!/bin/sh
+
+# git record
+#
+# CLI tool to record coding dojos
+#
+# Usage: 
+# git record
+#
+# git record clean
+#	clean the repository: remove all git-record relevant information
+#
+# copyright 2012 by Dominik Liebler
+#
+
+STEP_FILE=".step"
+SNAPSHOT_DIR=".snapshots"
+STREAMER=`which streamer`
+IMAGESNAP=`which imagesnap`
+VIDEO_DEVICE=`ls /dev/video* 2>/dev/null | head -1`
+
+# print usage information
+if [ "$1" = "-h" ]; then
+	echo "Usage: git record [clean]"
+	exit 0
+fi
+
+# clean
+if [ "$1" = "clean" ]; then
+	rm -rf $STEP_FILE $SNAPSHOT_DIR .gitignore .git
+	exit 0
+fi
+
+# init git repository if current dir is not in any
+if [ ! -d ".git" ]; then
+	git status > /dev/null 2>&1
+	if [ "$?" -eq 0 ]; then
+		echo "'$(pwd)' is in a subdirectory of an existing git repository, please run 'git record' in it's root dir" 1>&2
+		exit 1
+	fi
+
+	# init git
+	git init .
+	mkdir $SNAPSHOT_DIR
+	echo "-1" > $STEP_FILE
+	echo "$STEP_FILE\n$SNAPSHOT_DIR\n.idea\n.DS_Store" > .gitignore
+	git add .gitignore
+else
+	if [ ! -f  ".step" ]; then
+		echo "this is not a valid git-record repository, no .step file was found in '$(pwd)'" 1>&2
+		exit 1
+	fi
+fi
+
+STEP=`cat $STEP_FILE`
+STEP=$(($STEP+1))
+
+git add *
+git commit -m "Step $STEP"
+
+if [ "$?" -eq "0" ]; then
+	echo "$STEP" > $STEP_FILE
+
+	FILENAME="$SNAPSHOT_DIR/$STEP.jpeg"
+
+	# take a snapshot from the user who committed the step
+	# if streamer is installed
+	if [ $STREAMER ]; then
+		$STREAMER -c $VIDEO_DEVICE -o "$FILENAME" >/dev/null 2>&1
+	elif [ $IMAGESNAP ]; then
+		$IMAGESNAP "$FILENAME" >/dev/null 2>&1
+	fi
+fi

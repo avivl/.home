@@ -1,0 +1,17 @@
+#!/bin/sh
+
+ARGS="$1"
+DIR=`pwd`
+
+if [ "$ARGS" = "-h" ]; then
+	echo "Usage: $0 [file|directory]"
+	exit 0
+fi
+
+if [ -d ".git" ]; then
+	touch .gitignore
+	echo "$ARGS" >> .gitignore
+else
+	echo "$DIR this is not the root of the repository" >&2
+	exit 1
+fi

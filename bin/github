@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# open the git project in the current directory on Github
+# 
+# uses the git-current script!
+
+set -e
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    echo "Usage: github [-a|-h]"
+    exit 0
+fi
+
+if [ -e ".git" ]; then
+    CONFIG=`cat .git/config`
+	BRANCH=`git current`
+
+    if [ "$1" = "-a" ]; then
+        # open all submodule configs, too
+        UPSTREAM=`echo "$CONFIG" | grep "github.com"`
+    else
+        UPSTREAM=`echo "$CONFIG" | grep -C 3 "remote \"origin\"" | grep "github.com"`
+    fi
+
+    if [ "$UPSTREAM" != "" ]; then
+		URL=`echo "$UPSTREAM" | sed 's/\.git//g'`
+		URL=`echo "$URL" | sed 's/\url = //g'`
+		URL=`echo "$URL" | sed 's/\git@//g'`
+		
+        URL=`echo $URL | sed 's/:/\//g' | sed 's/\= //g'`
+        URL="https://"$URL"/tree/"$BRANCH
+
+        chrome "$URL"
+    else
+        echo "no configured upstream found!" >&2
+    fi
+else
+    echo "this is not a valid git repository!" >&2
+fi

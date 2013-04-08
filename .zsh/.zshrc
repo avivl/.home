@@ -68,8 +68,8 @@ setopt CORRECT CORRECT_ALL
 
 # Enable extended globbing
 setopt EXTENDED_GLOB
-export SHELL=/usr/bin/zsh
+export SHELL=/bin/zsh
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-[ -s "/home/aviv/.scm_breeze/scm_breeze.sh" ] && source "/home/aviv/.scm_breeze/scm_breeze.sh"
+[ -s ~/.scm_breeze/scm_breeze.sh ] && source ~/.scm_breeze/scm_breeze.sh
