@@ -71,3 +71,5 @@ setopt EXTENDED_GLOB
 export SHELL=/usr/bin/zsh
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+[ -s "/home/aviv/.scm_breeze/scm_breeze.sh" ] && source "/home/aviv/.scm_breeze/scm_breeze.sh"

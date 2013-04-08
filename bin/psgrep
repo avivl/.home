@@ -1,0 +1,4 @@
+#!/bin/sh
+ARGS="$1"
+ps aux | grep -v "grep" | grep "$1"
+

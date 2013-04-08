@@ -1,5 +1,5 @@
 " Leader
-let mapleader = " "
+let mapleader = ","
 
 set nocompatible  " Use Vim settings, rather then Vi settings
 set nobackup
@@ -44,6 +44,13 @@ Bundle 'vim-scripts/ctags.vim'
 Bundle 'vim-scripts/greplace.vim'
 Bundle 'vim-scripts/tComment'
 Bundle 'xenoterracide/html.vim'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'altercation/vim-colors-solarized'
+if executable('ctags')
+  Bundle 'majutsushi/tagbar'
+endif
+
+
 
 filetype plugin indent on
 
