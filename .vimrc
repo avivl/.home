@@ -49,6 +49,9 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'techlivezheng/vim-plugin-minibufexpl'
 Bundle 'sjl/gundo.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'vim-scripts/YankRing.vim'
+
 if executable('ctags')
   Bundle 'majutsushi/tagbar'
 endif
@@ -168,7 +171,9 @@ highlight MBEVisibleChanged term=bold cterm=bold gui=bold guibg=DarkRed guifg=Bl
 
 "Key Mapping
 nnoremap <F5> :GundoToggle<CR>
-
+nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <F3> :YRShow<CR>
+let g:ctrlp_map = '<leader>z'
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")

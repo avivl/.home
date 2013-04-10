@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+# update all refs
+git fetch
+
+if [ "$?" = "0" ]; then
+	BRANCH=`git branch | grep "^*" | awk '{print $2}'`
+	UPSTREAM=`git remote | head -1`
+
+	echo "Rebasing based on $UPSTREAM/$BRANCH ..."
+
+	STASHED=`git stash save`
+
+	git rebase -i $UPSTREAM/$BRANCH
+
+	if [ "$STASHED" != "No local changes to save" ]; then
+		git stash apply > /dev/null
+	fi
+fi
