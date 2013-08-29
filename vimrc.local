@@ -1,0 +1,37 @@
+autocmd FileType ruby,eruby set filetype=ruby.eruby.chef
+set nofoldenable                  " Auto fold code
+
+"Colors stuff
+highlight LineNr ctermfg=grey ctermbg=black
+set background=dark
+let g:solarized_hitrail=1
+let g:solarized_menu=0
+"" Tmuxifi
+let g:tmuxify_pane_split = '-v'
+let g:tmuxify_pane_size = '10'"
+
+" Toggle the NERD Tree on an off with F2
+nmap <F2> :NERDTreeToggle<CR>
+" " " Undo buffer
+nmap <F3> <Leader>u
+ nnoremap <silent> <F4> :TagbarToggle<CR>
+" " " " F5 - View a list of buffers
+nmap <F5> <Esc>:BufExplorer<cr>
+vmap <F5> <esc>:BufExplorer<cr>
+imap <F5> <esc><esc>:BufExplorer<cr>
+" "
+" " " F6 Show clipboard
+nmap <F6> :YRShow<CR>
+"
+let g:BASH_TemplateOverriddenMsg= 'yes'
+let g:BASH_AuthorName   = 'Aviv Laufer'
+let g:BASH_Email       = 'avivi.laufer@gmail.com'
+let g:BASH_Company      = ''"
+
+"Since I wrote this article I have discovered Jedi-vim which I now use as the
+"autocompletion tool instead of the rope plugin that comes with Python Mode.
+"All you need to do is add the plugin to the vundle list and turn off Rope by
+"replacing the let g:pymode_rope = 1 with let g:pymode_rope = 0. I feel it's
+"snappier and more capable than Rope. But if you want to avoid installing
+"another plugin, then feel free to stay with Rope."
+let g:pymode_rope = 0
