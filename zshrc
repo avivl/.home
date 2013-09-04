@@ -62,13 +62,18 @@ stty stop undef
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git osx pip python brew django ssh-agent tmux)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/vendor_perl:/usr/bin/core_perl
+export PATH=/usr/local/sbin:/usr/local/bin:$PATH:/usr/bin:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/local/bin
 
 [ -s ~/.scm_breeze/scm_breeze.sh ] && source ~/.scm_breeze/scm_breeze.sh
 
 export DISABLE_AUTO_TITLE=true
+
+PATH=$PATH:$HOME/.rvm/bin
+# Add RVM to PATH for scripting
+export JAVA_HOME=`/usr/libexec/java_home -v 1.6`
+source /Library/Python/2.7/site-packages/awscli-0.15.0-py2.7.egg/EGG-INFO/scripts/aws_zsh_completer.sh

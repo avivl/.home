@@ -35,3 +35,5 @@ let g:BASH_Company      = ''"
 "snappier and more capable than Rope. But if you want to avoid installing
 "another plugin, then feel free to stay with Rope."
 let g:pymode_rope = 0
+
+let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
