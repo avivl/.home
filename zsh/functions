@@ -68,3 +68,5 @@ function involu
  tmux select-window -t involu:1
  tmux attach-session -t involu
 }
+
+function mountAndroid { hdiutil attach ~/android.dmg -readwrite -mountpoint /Volumes/android; }
