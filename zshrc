@@ -62,23 +62,26 @@ stty stop undef
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx pip python brew django ssh-agent tmux)
+plugins=(git osx pip python brew django ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/sbin:/usr/local/bin:$PATH:/usr/bin:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/local/bin:~/bin/
+export PATH=/usr/local/sbin:/usr/local/bin:$PATH:/usr/bin:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/local/bin:~/bin/:~/android-sdks/platform-tools
+export PATH=~/.tmuxifier/bin:$PATH
 
 [ -s ~/.scm_breeze/scm_breeze.sh ] && source ~/.scm_breeze/scm_breeze.sh
 
 export DISABLE_AUTO_TITLE=true
 
-PATH=$PATH:$HOME/.rvm/bin
+PATH=$PATH:$HOME/.rvm/bin:~/android-sdks/tools/:~/android-sdks/android-ndk-r9/
 # Add RVM to PATH for scripting
-export JAVA_HOME=`/usr/libexec/java_home -v 1.6`
-source /Library/Python/2.7/site-packages/awscli-0.15.0-py2.7.egg/EGG-INFO/scripts/aws_zsh_completer.sh
+#export JAVA_HOME=`/usr/libexec/java_home -v 1.6`
+source /usr/local/bin/aws_zsh_completer.sh
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 source ~/.zsh/functions
 source /usr/local/Cellar/todo-txt/2.9/etc/bash_completion.d/todo_completion complete -F _todo t
 source ~/.zsh/aliases
-
+eval "$(tmuxifier init -)"
+export EDITOR='vim'
+export ANDROID_HOME=/Users/aviv/android-sdks

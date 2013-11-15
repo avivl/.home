@@ -37,3 +37,13 @@ let g:BASH_Company      = ''"
 let g:pymode_rope = 0
 
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
+
+" Fast exit from Insert Mode
+inoremap kj <ESC>
+
+""vimux
+  "
+map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vl :VimuxRunLastCommand<CR>
+map <Leader>vi :VimuxInspectRunner<CR>
+map <Leader>vq :VimuxCloseRunner<CR>
