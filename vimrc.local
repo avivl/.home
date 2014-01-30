@@ -19,9 +19,12 @@ nmap <F3> <Leader>u
 nmap <F5> <Esc>:BufExplorer<cr>
 vmap <F5> <esc>:BufExplorer<cr>
 imap <F5> <esc><esc>:BufExplorer<cr>
+set clipboard=unnamed                                        " yank and paste with the system clipboard"
 " "
 " " " F6 Show clipboard
 nmap <F6> :YRShow<CR>
+"ident"
+map <F7> mzgg=G`z<CR> `
 "
 let g:BASH_TemplateOverriddenMsg= 'yes'
 let g:BASH_AuthorName   = 'Aviv Laufer'
@@ -47,3 +50,21 @@ map <Leader>vp :VimuxPromptCommand<CR>
 map <Leader>vl :VimuxRunLastCommand<CR>
 map <Leader>vi :VimuxInspectRunner<CR>
 map <Leader>vq :VimuxCloseRunner<CR>
+
+" map <F3> and <S-F3> to jump between locations in a quickfix list, or
+" " differences if in window in diff mode
+nnoremap <expr> <silent>   <F9> (&diff ? "]c" : ":cnext\<CR>")
+nnoremap <expr> <silent> <F10> (&diff ? "[c" : ":cprev\<CR>")
+" md is markdown
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+nmap <leader>a :Ack<space>
+nmap <leader>l :CtrlPBuffer<CR>
+nmap <Leader>; :CtrlP<CR>
+
+let g:spf13_keep_trailing_whitespace = 1
+autocmd FileType go compiler golang
+autocmd BufWritePre *.go Fmt
+let g:golang_goroot = "/usr/local/go/"
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn="80,".join(range(120,999),",")
+let g:gofmt_command = 'goimports'

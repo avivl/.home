@@ -96,6 +96,8 @@ alias vu='cd ~/code/vim-university'
 alias y='cd ~/code/ybuy'
 alias z='zeus'
 alias zs='zeus start'
+alias cdg='cd ~/GitHub/'
+alias cdr='cd ~/GitHub/Rounds/'
 
 # Heroku staging
 alias staging-console='heroku run console --remote staging'
