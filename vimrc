@@ -73,7 +73,7 @@ au BufRead,BufNewFile *.go set filetype=go
 "autocmd FileType go compiler golang
 "let g:gofmt_command = 'goimports'
 "autocmd BufWritePre *.go Fmt
-"autocmd BufWritePost *.go call UpdateGoTags()
+autocmd BufWritePost *.go call UpdateGoTags()
 
 
 "vim-go"
@@ -131,9 +131,9 @@ function! ResCur()
             autocmd BufWinEnter * call ResCur()
         augroup END
 
-let g:golang_gopath ="/Users/aviv/gopath"
-let $GOPATH="/Users/aviv/gopath:"
-let $GOROOT="/usr/local/go"
+"let g:golang_gopath ="/Users/aviv/gopath"
+"let $GOPATH="/Users/aviv/gopath:"
+"let $GOROOT="/usr/local/go"
 
 function! UpdateGoTags()
 	let gotags = 'find . -name "*.go" |xargs gotags --sort=true --silent=true>>tags'
