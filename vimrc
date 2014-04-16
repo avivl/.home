@@ -1,6 +1,8 @@
 set nocompatible
-set rtp+=/Users/aviv/.vim/bundle/vundle
-call vundle#rc("/Users/aviv/.vim/bundle/")
+"set rtp+=/Users/aviv/.vim/bundle/vundle
+"call vundle#rc("/Users/aviv/.vim/bundle/")
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 filetype plugin indent on   " Automatically detect file types.
 syntax on   " Syntax highlighting
 let mapleader = ','
