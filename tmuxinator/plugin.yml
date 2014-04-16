@@ -22,5 +22,5 @@ windows:
         - vim
         - 
   - build: cd build 
-  - logs: tail -f /tmp/nproundsplugin.log /tmp/nproundsplugin-vidyo.log
+  - logs: tail -f /tmp/nproundsplugin.log 
   - canari: cd "/Applications/Google Chrome Canary.app/Contents/MacOS"; "./Google Chrome Canary" --plugin-startup-dialog

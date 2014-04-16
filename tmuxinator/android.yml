@@ -26,6 +26,8 @@ windows:
         panes:
             - find . -name "*.c" |xargs vim
             - 
+  - Git: cd /Users/aviv/GitHub/Rounds/android/;gitsh
+  - shell: cd /Users/aviv/GitHub/Rounds/android/Rounds
   - logcat:
       layout: main-horzintal
       panes:

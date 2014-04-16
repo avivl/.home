@@ -62,35 +62,81 @@ command! -bang Qa qa<bang>
 
 Bundle 'gmarik/vundle'
 
+"Cooment out for https://github.com/fatih/vim-go"
 " Go stuf go in here:)"
 "An autocompletion daemon for the Go programming language"
-Bundle 'Blackrush/vim-gocode'
+"Bundle 'Blackrush/vim-gocode'
+"Bundle 'rjohnsondev/vim-compiler-go'
+au BufRead,BufNewFile *.go set filetype=go
+"autocmd FileType go compiler golang
+"let g:gofmt_command = 'goimports'
+"autocmd BufWritePre *.go Fmt
+"autocmd BufWritePost *.go call UpdateGoTags()
+
+
+"vim-go"
+Bundle 'fatih/vim-go.git'
+"Import the package under your cursor with <leader>i
+
+au Filetype go nnoremap <buffer> <leader>i :exe 'GoImport ' . expand('<cword>')<CR>
+au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
+au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
+au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
+
+Bundle 'ervandew/supertab'
 "code-completion engine for Vim"
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 "enable completion from tags
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-" remap Ultisnips for compatibility for YCM
-let g:UltiSnipsExpandTrigger = '<C-j>'
-let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+let g:UltiSnipsSnippetsDir = '/Users/aviv/.vim/bundle/vim-snippets/snippets'
 
-Bundle 'rjohnsondev/vim-compiler-go'
-au BufRead,BufNewFile *.go set filetype=go
-autocmd FileType go compiler golang
-let g:gofmt_command = 'goimports'
-autocmd BufWritePre *.go Fmt
+
+
+"let g:UltiSnipsExpandTrigger='<c-s>'
+"let g:UltiSnipsJumpForwardTrigger='<c-j>'
+"let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+"let g:UltiSnipsListSnippets='<c-l>'
+
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+"
+" " better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+
+
+
+
+
 let g:golang_goroot = "/usr/local/go/"
-let g:golang_gopath =" /Users/aviv/gopath"
-let $GOPATH="/Users/aviv/gopath"
+function! ResCur()
+            if line("'\"") <= line("$")
+                normal! g`"
+                return 1
+            endif
+        endfunction
+
+        augroup resCur
+            autocmd!
+            autocmd BufWinEnter * call ResCur()
+        augroup END
+
+let g:golang_gopath ="/Users/aviv/gopath"
+let $GOPATH="/Users/aviv/gopath:"
+let $GOROOT="/usr/local/go"
+
+function! UpdateGoTags()
+	let gotags = 'find . -name "*.go" |xargs gotags --sort=true --silent=true>>tags'
+	call system(gotags)
+endfunction
 
 Bundle 'marijnh/tern_for_vim'
 "A tree explorer plugin for vim
@@ -163,6 +209,7 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 " Mnemonic _i_nteractive
 nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
+Bundle 'airblade/vim-gitgutter'
 
 "Fuzzy file, buffer, mru, tag, etc finder
 Bundle 'ctrlp.vim'
@@ -198,7 +245,7 @@ set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
 nmap <leader>sl :SessionList<CR>
 nmap <leader>ss :SessionSave<CR>
 nmap <leader>sc :SessionClose<CR>
- 
+
 Bundle 'vim-scripts/Conque-GDB'
 "numbers.vim is a vim plugin for better line numbers"
 Bundle 'myusuf3/numbers.vim'
@@ -244,11 +291,7 @@ nmap <leader>y :YRShow<CR>
 Bundle 'bash-support.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'uarun/vim-protobuf'
-
-
-
-
-
+Bundle 'tpope/vim-markdown'
 
 
 
@@ -346,4 +389,3 @@ function! InitializeDirectories()
     endfunction
 
     command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
-

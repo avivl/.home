@@ -21,7 +21,7 @@ windows:
         - vim
         - make test  && fswatch src/. 'make test'
   - shell:
-  - Git: gs
+  - Git: gitsh
   - Mongo: mongo
 
 
