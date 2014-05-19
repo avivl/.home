@@ -1,6 +1,4 @@
 set nocompatible
-"set rtp+=/Users/aviv/.vim/bundle/vundle
-"call vundle#rc("/Users/aviv/.vim/bundle/")
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 filetype plugin indent on   " Automatically detect file types.
@@ -64,21 +62,13 @@ command! -bang Qa qa<bang>
 
 Bundle 'gmarik/vundle'
 
-"Cooment out for https://github.com/fatih/vim-go"
 " Go stuf go in here:)"
-"An autocompletion daemon for the Go programming language"
-"Bundle 'Blackrush/vim-gocode'
-"Bundle 'rjohnsondev/vim-compiler-go'
 au BufRead,BufNewFile *.go set filetype=go
-"autocmd FileType go compiler golang
-"let g:gofmt_command = 'goimports'
-"autocmd BufWritePre *.go Fmt
 autocmd BufWritePost *.go call UpdateGoTags()
 
 
 "vim-go"
 Bundle 'fatih/vim-go.git'
-"Import the package under your cursor with <leader>i
 
 au Filetype go nnoremap <buffer> <leader>i :exe 'GoImport ' . expand('<cword>')<CR>
 au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
@@ -95,14 +85,6 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/snippets'
 
-
-
-"let g:UltiSnipsExpandTrigger='<c-s>'
-"let g:UltiSnipsJumpForwardTrigger='<c-j>'
-"let g:UltiSnipsJumpBackwardTrigger='<c-k>'
-"let g:UltiSnipsListSnippets='<c-l>'
-
-
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
@@ -113,12 +95,6 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-
-
-
-
-
-let g:golang_goroot = "/usr/local/go/"
 function! ResCur()
             if line("'\"") <= line("$")
                 normal! g`"
@@ -131,9 +107,6 @@ function! ResCur()
             autocmd BufWinEnter * call ResCur()
         augroup END
 
-"let g:golang_gopath ="/Users/aviv/gopath"
-"let $GOPATH="/Users/aviv/gopath:"
-"let $GOROOT="/usr/local/go"
 
 function! UpdateGoTags()
 	let gotags = 'find . -name "*.go" |xargs gotags --sort=true --silent=true>>tags'
@@ -294,9 +267,9 @@ Bundle 'bash-support.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'uarun/vim-protobuf'
 Bundle 'tpope/vim-markdown'
-
-
-
+Bundle 'hsanson/vim-android'
+Bundle 'moll/vim-node'
+Bundle 'szw/vim-ctrlspace'
 
 
 
