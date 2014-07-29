@@ -59,7 +59,7 @@ command! -bang QA qa<bang>
 command! -bang Qa qa<bang>
 
 
-
+Bundle 'chase/vim-ansible-yaml'
 Bundle 'gmarik/vundle'
 
 " Go stuf go in here:)"
@@ -186,6 +186,7 @@ nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 Bundle 'airblade/vim-gitgutter'
 
+
 "Fuzzy file, buffer, mru, tag, etc finder
 Bundle 'ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
@@ -269,7 +270,6 @@ Bundle 'uarun/vim-protobuf'
 Bundle 'tpope/vim-markdown'
 Bundle 'hsanson/vim-android'
 Bundle 'moll/vim-node'
-Bundle 'szw/vim-ctrlspace'
 
 
 

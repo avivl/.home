@@ -119,3 +119,4 @@ alias levelup-db-fix='killruby ; rake db:drop:all db:create:all ; pg_restore --v
 
 #By Aviv #
 alias t='/usr/local/Cellar/todo-txt/2.9/bin/todo.sh'
+alias acomander='ssh -i ~/.ssh/ansible ubuntu@54.88.161.216 '
