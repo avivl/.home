@@ -28,11 +28,10 @@ stty start undef
 stty stop undef
 #
 
-
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
+alias ack='ag --nogroup --nocolor --column --smart-case'
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -62,19 +61,16 @@ stty stop undef
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx pip python brew django ssh-agent)
+plugins=(git osx pip python brew django ssh-agent golang git-hubflow docker tugboat virtualenvwrapper )
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/sbin:/usr/local/bin:$PATH:/usr/bin:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/local/bin:~/bin/:~/android-sdks/platform-tools
-export PATH=~/.tmuxifier/bin:$PATH
+export PATH=/usr/local/sbin:/usr/local/bin:$PATH:/usr/bin:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/local/bin:~/bin/:~/android-sdks/platform-toolsi:~/Development/oclint/bin
 
-[ -s ~/.scm_breeze/scm_breeze.sh ] && source ~/.scm_breeze/scm_breeze.sh
 
 export DISABLE_AUTO_TITLE=true
 
-PATH=$PATH:$HOME/.rvm/bin:~/android-sdks/tools/:~/android-sdks/android-ndk-r9/
 # Add RVM to PATH for scripting
 #export JAVA_HOME=`/usr/libexec/java_home -v 1.6`
 source /usr/local/bin/aws_zsh_completer.sh
@@ -82,6 +78,25 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 source ~/.zsh/functions
 source /usr/local/Cellar/todo-txt/2.9/etc/bash_completion.d/todo_completion complete -F _todo t
 source ~/.zsh/aliases
-eval "$(tmuxifier init -)"
 export EDITOR='vim'
 export ANDROID_HOME=/Users/aviv/android-sdks
+export ANDROID_SDK_ROOT=/Users/aviv/android-sdks
+export NDK_ROOT=$ANDROID_HOME/android-ndk-r9
+source ~/.rvm/gems/ruby-1.9.3-p448/gems/tmuxinator-0.6.5/completion/tmuxinator.zsh
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export TERM=screen-256color-bce 
+
+export GOPATH=/Users/aviv/gopath/
+export GOROOT=/usr/local/go
+export PYTHONPATH="/Users/aviv/Github/Rounds/server/ricapi:/Users/aviv/Github/Rounds/server/libs"
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper_lazy.sh
+eval "$(hub alias -s)"
+
+
+PATH=$PATH:$GOPATH/bin
+PATH=~/google-cloud-sdk/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH
+fpath=(/usr/local/share/zsh-completions $fpath)
+[ -s ~/.scm_breeze/scm_breeze.sh ] && source ~/.scm_breeze/scm_breeze.sh
+# added by travis gem
+[ -f /Users/aviv/.travis/travis.sh ] && source /Users/aviv/.travis/travis.sh
