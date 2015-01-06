@@ -38,13 +38,15 @@ set hidden                          " Allow buffer switching without saving
 
 
 
-
+" Make a simple "search" text object.
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
 
 
 highlight clear SignColumn      " SignColumn should match background
 highlight clear LineNr          " Current line number row will have same background color in relative mode
 let g:CSApprox_hook_post = ['hi clear SignColumn']
-
 
 
 "fix keys "
@@ -61,7 +63,10 @@ command! -bang Qa qa<bang>
 
 Bundle 'chase/vim-ansible-yaml'
 Bundle 'gmarik/vundle'
-
+Bundle 'oblitum/rainbow'
+Bundle 'tpope/vim-dispatch'
+let g:rainbow_active = 1
+au FileType c,cpp,objc,objcpp,go call rainbow#load()
 " Go stuf go in here:)"
 au BufRead,BufNewFile *.go set filetype=go
 autocmd BufWritePost *.go call UpdateGoTags()
@@ -244,8 +249,9 @@ let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 
 if gitroot != ''
     let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
-
 Bundle 'scrooloose/syntastic'
+let g:syntastic_python_checkers = ['flake8', 'pep257']
+let g:syntastic_go_checkers = ['go', 'golint', 'govet']
 
 let g:BASH_TemplateOverriddenMsg= 'yes'
 let g:BASH_AuthorName   = 'Aviv Laufer'
@@ -273,8 +279,87 @@ Bundle 'moll/vim-node'
 
 
 
+"Google styles"
+au BufNewFile,BufRead c,cpp,cc,objc,*.mm call SetupForCLang()
+" Configuration for C-like languages.
+function! SetupForCLang()
+    " Highlight lines longer than 80 characters.
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    " Alternately, uncomment these lines to wrap at 80 characters.
+    " setlocal textwidth=80
+    " setlocal wrap
 
+    " Use 2 spaces for indentation.
+    setlocal shiftwidth=2
+    setlocal tabstop=2
+    setlocal softtabstop=2
+    setlocal expandtab
 
+    " Configure auto-indentation formatting.
+    setlocal cindent
+    setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
+    setlocal indentexpr=GoogleCppIndent()
+    let b:undo_indent = "setl sw< ts< sts< et< tw< wrap< cin< cino< inde<"
+
+    " Uncomment these lines to map F5 to the CEF style checker. Change the path to match your system.
+    " map! <F5> <Esc>:!python ~/code/chromium/src/cef/tools/check_style.py %:p 2> lint.out<CR>:cfile lint.out<CR>:silent !rm lint.out<CR>:redraw!<CR>:cc<CR>
+    " map  <F5> <Esc>:!python ~/code/chromium/src/cef/tools/check_style.py %:p 2> lint.out<CR>:cfile lint.out<CR>:silent !rm lint.out<CR>:redraw!<CR>:cc<CR>
+endfunction
+" From https://github.com/vim-scripts/google.vim/blob/master/indent/google.vim
+function! GoogleCppIndent()
+    let l:cline_num = line('.')
+
+    let l:orig_indent = cindent(l:cline_num)
+
+    if l:orig_indent == 0 | return 0 | endif
+
+    let l:pline_num = prevnonblank(l:cline_num - 1)
+    let l:pline = getline(l:pline_num)
+    if l:pline =~# '^\s*template' | return l:pline_indent | endif
+
+    " TODO: I don't know to correct it:
+    " namespace test {
+    " void
+    " ....<-- invalid cindent pos
+    "
+    " void test() {
+    " }
+    "
+    " void
+    " <-- cindent pos
+    if l:orig_indent != &shiftwidth | return l:orig_indent | endif
+
+    let l:in_comment = 0
+    let l:pline_num = prevnonblank(l:cline_num - 1)
+    while l:pline_num > -1
+        let l:pline = getline(l:pline_num)
+        let l:pline_indent = indent(l:pline_num)
+
+        if l:in_comment == 0 && l:pline =~ '^.\{-}\(/\*.\{-}\)\@<!\*/'
+            let l:in_comment = 1
+        elseif l:in_comment == 1
+            if l:pline =~ '/\*\(.\{-}\*/\)\@!'
+                let l:in_comment = 0
+            endif
+        elseif l:pline_indent == 0
+            if l:pline !~# '\(#define\)\|\(^\s*//\)\|\(^\s*{\)'
+                if l:pline =~# '^\s*namespace.*'
+                    return 0
+                else
+                    return l:orig_indent
+                endif
+            elseif l:pline =~# '\\$'
+                return l:orig_indent
+            endif
+        else
+            return l:orig_indent
+        endif
+
+        let l:pline_num = prevnonblank(l:pline_num - 1)
+    endwhile
+
+    return l:orig_indent
+endfunction
 
 
 
@@ -364,3 +449,13 @@ function! InitializeDirectories()
     endfunction
 
     command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
+
+" Call YCM GoTo or vim-go GoTo depending on file type. 
+function! GoToDef()
+    if &ft == 'go'
+        call go#def#Jump()
+    else
+        execute 'YcmCompleter GoTo'
+    endif
+endfunction
+nnoremap <leader>] :call GoToDef()<CR>
