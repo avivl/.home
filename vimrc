@@ -35,8 +35,11 @@ set virtualedit=onemore             " Allow for cursor beyond last character
 set history=1000                    " Store a ton of history (default is 20)
 set spell                           " Spell checking on
 set hidden                          " Allow buffer switching without saving
-
-
+set backup
+augroup backup
+    autocmd!
+    autocmd BufWritePre,FileWritePre * let &l:backupext = '~' . strftime('%F') . '~'
+augroup END
 
 " Make a simple "search" text object.
 vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
@@ -74,7 +77,7 @@ autocmd BufWritePost *.go call UpdateGoTags()
 
 "vim-go"
 Bundle 'fatih/vim-go.git'
-
+Bundle 't-yuki/vim-go-coverlay'
 au Filetype go nnoremap <buffer> <leader>i :exe 'GoImport ' . expand('<cword>')<CR>
 au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
 au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
@@ -147,8 +150,10 @@ let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-notes'
+let g:notes_directories = ['~/Dropbox/vim-notes']
 Bundle 'nathanaelkane/vim-indent-guides'
-
 "My colors"
 Bundle 'altercation/vim-colors-solarized'
 let g:solarized_termcolors=256

@@ -6,7 +6,7 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
-
+ZSH_THEME="blinks"
 # Never know when you're gonna need to popd!
 setopt AUTO_PUSHD
 #
@@ -14,9 +14,9 @@ setopt AUTO_PUSHD
 bindkey "^N" insert-last-word
 #
 # # Show contents of directory after cd-ing into it
-chpwd() {
-   ls -lrthG
-}
+#chpwd() {
+#   ls -lrthG
+#}
 #
 #   # Save a ton of history
 HISTSIZE=20000
@@ -100,3 +100,5 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 [ -s ~/.scm_breeze/scm_breeze.sh ] && source ~/.scm_breeze/scm_breeze.sh
 # added by travis gem
 [ -f /Users/aviv/.travis/travis.sh ] && source /Users/aviv/.travis/travis.sh
+[[ -s "/Users/aviv/.gvm/scripts/gvm" ]] && source "/Users/aviv/.gvm/scripts/gvm"
+export PROMPT="$PROMPT\$(git-radar --zsh --fetch) "
