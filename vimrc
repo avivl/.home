@@ -68,6 +68,8 @@ Bundle 'chase/vim-ansible-yaml'
 Bundle 'gmarik/vundle'
 Bundle 'oblitum/rainbow'
 Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-sensible'
+Bundle 'junegunn/fzf'
 let g:rainbow_active = 1
 au FileType c,cpp,objc,objcpp,go call rainbow#load()
 " Go stuf go in here:)"
@@ -82,12 +84,18 @@ au Filetype go nnoremap <buffer> <leader>i :exe 'GoImport ' . expand('<cword>')<
 au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
 au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
 au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
-
+let g:go_fmt_command = "goimports"
 Bundle 'ervandew/supertab'
 "code-completion engine for Vim"
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'klen/python-mode'
+let g:pymode_folding = 0
+let g:pymode_indent = 1
+" Automatically fix PEP8 errors in the current buffer:
+noremap <F8> :PymodeLintAuto<CR>
 "enable completion from tags
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
@@ -282,7 +290,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'hsanson/vim-android'
 Bundle 'moll/vim-node'
 
-
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 "Google styles"
 au BufNewFile,BufRead c,cpp,cc,objc,*.mm call SetupForCLang()
@@ -464,3 +472,8 @@ function! GoToDef()
     endif
 endfunction
 nnoremap <leader>] :call GoToDef()<CR>
+cmap w!! w !sudo tee % >/dev/null
+augroup reload_vimrc " {
+	    autocmd!
+	        autocmd BufWritePost $MYVIMRC source $MYVIMRC
+	augroup END " }
