@@ -7,12 +7,11 @@ elif [[ $platform == 'Darwin' ]]; then
 fi
 
 alias amend="git commit --amend"
-alias asu="cd ~/code/rails/activesupport"
+alias tmux="TERM=screen-256color-bce tmux"
+#Ruby
 alias aliases='vim ~/.dotfiles/zsh/aliases'
-alias b='ssh -t ben@benorenstein.com screen -rd irc'
 alias bake='bundle exec rake'
 alias be='bundle exec'
-alias ben='ssh ben@benorenstein.com'
 alias bi='bundle install'
 alias be='bundle exec'
 alias bo='cd ~/code/boardwalk'
@@ -92,31 +91,14 @@ alias warmup='vim ~/Dropbox/barbershop/warmups/ideas.txt'
 alias u='cd ..'
 alias v='vim'
 alias vi='vim'
-alias vu='cd ~/code/vim-university'
-alias y='cd ~/code/ybuy'
-alias z='zeus'
-alias zs='zeus start'
-alias cdg='cd ~/GitHub/'
-alias cdr='cd ~/GitHub/Rounds/'
 
-# Heroku staging
-alias staging-console='heroku run console --remote staging'
-alias staging-tail='heroku logs --tail --remote staging'
-
-# Heroku production
-alias production-console='heroku run console --remote production'
-alias production-tail='heroku logs --tail --remote production'
-
-# # Heroku databases
-alias db-pull-staging='heroku db:pull --remote staging --confirm `basename $PWD`-staging'
-alias db-pull-production='heroku db:pull --remote production --confirm `basename $PWD`-production'
-alias db-copy-production-to-staging='heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging  --confirm `basename $PWD`-staging'
-alias db-backup-production='heroku pgbackups:capture --remote production'
-alias db-backups='heroku pgbackups --remote production'
-
-alias levelup-get-production='curl -o ~/Downloads/latest.dump `heroku pgbackups:url --app levelup-production`'
-alias levelup-db-fix='killruby ; rake db:drop:all db:create:all ; pg_restore --verbose --clean --no-acl --no-owner -d levelup_development ~/Downloads/latest.dump -j 8 ; prepdb && rake levelup:dev:create_admin && rails runner CreditCard.delete_all'
 
 #By Aviv #
-alias t='/usr/local/Cellar/todo-txt/2.9/bin/todo.sh'
-alias acomander='ssh -i ~/.ssh/ansible ubuntu@54.88.161.216 '
+#Todo ansible control
+#alias acomander='ssh -i ~/.ssh/ansible ubuntu@54.88.161.216 '
+###################
+
+alias ll="k"  # overriding scm_breeze
+alias ack='ag --nogroup --nocolor --column --smart-case'
+alias cdg='cd ~/GitHub/'
+alias cdr='cd ~/GitHub/Rounds/'

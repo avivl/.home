@@ -97,6 +97,8 @@ ssh() {
 
 function sshans { ssh -i ~/.ssh/ansible $@ }
 
+function rounds-apps { sshuttle -r ubuntu@ssh-gw.rounds.com 172.16.0.0/16 --dns }
+
 function tmux-cssh-ans {
  OLD_TMUX=$TMUX
  unset TMUX

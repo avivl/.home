@@ -69,6 +69,7 @@ Bundle 'gmarik/vundle'
 Bundle 'oblitum/rainbow'
 Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-sensible'
+Bundle 'tpope/vim-repeat'
 Bundle 'junegunn/fzf'
 let g:rainbow_active = 1
 au FileType c,cpp,objc,objcpp,go call rainbow#load()
@@ -84,6 +85,8 @@ au Filetype go nnoremap <buffer> <leader>i :exe 'GoImport ' . expand('<cword>')<
 au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
 au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
 au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
+
+autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
 let g:go_fmt_command = "goimports"
 Bundle 'ervandew/supertab'
 "code-completion engine for Vim"
@@ -175,6 +178,7 @@ let g:solarized_menu=0
 
 "Lean & mean status/tabline for vim that's light as air.
 Bundle 'bling/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'solarized'
 set ruler   " Show the ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
@@ -203,6 +207,7 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 Bundle 'airblade/vim-gitgutter'
+Bundle 'mhinz/vim-signify'
 
 
 "Fuzzy file, buffer, mru, tag, etc finder
@@ -277,12 +282,19 @@ let g:undotree_SetFocusWhenToggle=1
 set undofile" So is persistent undo ...
 set undolevels=1000 " Maximum number of changes that can be undone
 set undoreload=10000" Maximum number lines to save for undo on a buffer reload
-
+if has('persistent_undo')
+    set undolevels=5000
+    set undodir=$HOME/.VIM_UNDO_FILES
+    set undofile
+endif
+set updatecount=10
 
 
 Bundle 'vim-scripts/yaml.vim'
 Bundle 'YankRing.vim'
 nmap <leader>y :YRShow<CR>
+Bundle 'svermeulen/vim-easyclip'
+Bundle 'Shougo/neoyank.vim'
 Bundle 'bash-support.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'uarun/vim-protobuf'
